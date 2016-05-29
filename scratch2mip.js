@@ -29,12 +29,28 @@
         });
     }
 
+    var lang = ((navigator.language || navigator.userLanguage) == 'ja') ? 'ja' : 'en';
+    var locale = {
+        ja: {
+            turn_right: '右に回す',
+            turn_left: '左に回す',
+            move_forward: '前進させる',
+            move_backward: '後退させる'
+        },
+        en: {
+            turn_right: 'Turn Right',
+            turn_left: 'Turn Left',
+            move_forward: 'Move Forward',
+            move_backward: 'Move Backward'
+        },
+    }
+
     var descriptor = {
         blocks: [
-            [' ', 'MiP: Turn Right', 'right', 'sample text'],
-            [' ', 'MiP: Turn Left', 'left', 'sample text'],
-            [' ', 'MiP: Move Forward', 'forward', 'sample text'],
-            [' ', 'MiP: Move Backward', 'backward', 'sample text']
+            [' ', 'MiP: ' + locale[lang].turn_right, 'right', 'sample text'],
+            [' ', 'MiP: ' + locale[lang].turn_left, 'left', 'sample text'],
+            [' ', 'MiP: ' + locale[lang].move_forward, 'forward', 'sample text'],
+            [' ', 'MiP: ' + locale[lang].move_backward, 'backward', 'sample text']
         ]
     };
 
