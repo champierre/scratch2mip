@@ -2,7 +2,7 @@
 
 scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch to controll balancing robot, [WowWee MiP](http://wowwee.com/mip/).
 
-[Demo movie](http://youtu.be/-2HlgkH58Zw)
+[![scratch2mip Demo](http://champierre.github.io/scratch2mip/images/scratch2mip.gif)](https://youtu.be/sXMXr9e-npw)
 
 ## Install Helper App
 
