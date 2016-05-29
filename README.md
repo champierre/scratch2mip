@@ -4,6 +4,11 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 
 [![scratch2mip Demo](https://cloud.githubusercontent.com/assets/10215/15634434/71dd4b4a-25fe-11e6-9746-d2eaa98774b6.gif)](https://youtu.be/sXMXr9e-npw)
 
+## Requirements
+
+- Tested only on MacOS 10.10.5(Yosemite).
+- Node.js
+
 ## Install Helper App
 
 To controll MiP, Helper App needs to be installed. You need node.js to run it.
