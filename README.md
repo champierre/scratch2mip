@@ -2,7 +2,7 @@
 
 scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch to controll balancing robot, [WowWee MiP](http://wowwee.com/mip/).
 
-[![scratch2mip Demo](http://champierre.github.io/scratch2mip/images/scratch2mip.gif)](https://youtu.be/sXMXr9e-npw)
+[![scratch2mip Demo](https://cloud.githubusercontent.com/assets/10215/15634434/71dd4b4a-25fe-11e6-9746-d2eaa98774b6.gif)](https://youtu.be/sXMXr9e-npw)
 
 ## Install Helper App
 
@@ -37,4 +37,6 @@ To controll MiP, Helper App needs to be installed. You need node.js to run it.
 	![scratch2mip_helper](http://champierre.github.io/scratch2mip/images/scratch2mip_helper.png)
 7. If the Helper App says "Server listening on...", you can controll MiP from ScratchX using the following custom blocks.
 
-	![blocks](http://champierre.github.io/scratch2mip/images/blocks.png)
+	![blocks](http://champierre.github.io/scratch2mip/images/blocks.png?201605300033)
+
+	![blocks](http://champierre.github.io/scratch2mip/images/mip_square.png)
