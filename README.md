@@ -6,7 +6,7 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 
 ## Requirements
 
-- Tested only on MacOS 10.10.5(Yosemite).
+- Tested only on MacOS 10.10.5(Yosemite). (Setup instruction on Windows 10 is available at [http://swikis.ddo.jp/WorldStethoscope/59](http://swikis.ddo.jp/WorldStethoscope/59) (Japanese))
 - Node.js
 
 ## Install Helper App
