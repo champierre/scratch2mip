@@ -54,5 +54,5 @@
         ]
     };
 
-    ScratchExtensions.register('Simple extension', descriptor, ext);
+    ScratchExtensions.register('Scratch2MiP', descriptor, ext);
 })({});
