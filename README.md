@@ -12,6 +12,9 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 	- Setup instruction is available at [http://swikis.ddo.jp/WorldStethoscope/59](http://swikis.ddo.jp/WorldStethoscope/59) (Japanese)
 - Raspberry Pi 3
   - Setup instruction is available at [http://nasu-lab.blogspot.jp/2016/06/raspberry-pi-3scratch2mip.html](http://nasu-lab.blogspot.jp/2016/06/raspberry-pi-3scratch2mip.html) (Japanese)
+- Raspberry Pi 2
+  - Setup instruction is available at
+  [http://nasu-lab.blogspot.jp/2016/06/raspberry-pi-2scratch2mip.html](http://nasu-lab.blogspot.jp/2016/06/raspberry-pi-2scratch2mip.html) (Japanese)
 
 ## Install Helper App
 
