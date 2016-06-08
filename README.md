@@ -51,4 +51,6 @@ To controll MiP, Helper App needs to be installed. You need node.js to run it.
 
 	![blocks](http://champierre.github.io/scratch2mip/images/blocks.png?201605300033)
 
+8. Demo Project: [scratch2mip_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_demo.sbx)
+
 	![blocks](http://champierre.github.io/scratch2mip/images/mip_square.png)
