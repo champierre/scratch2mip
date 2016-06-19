@@ -7,6 +7,7 @@ const PORT = 8080;
 var mip = require('./index');
 var mipFinder = new mip.Finder();
 var MiPRobot = mip.Robot;
+var selectedRobot;
 
 var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
@@ -44,53 +45,13 @@ mipFinder.scan(function(err, robots) {
   }
 
   rl.question('which one: ', function(which) {
-    var selectedRobot = robots[which];
+    selectedRobot = robots[which];
     if (selectedRobot != null) {
       mipFinder.connect(selectedRobot, function(err) {
         if (err != null) {
           console.log(err);
           return;
         }
-
-        dispatcher.onGet('/forward', function(req, res) {
-          res.writeHead(200, {'Content-Type': 'text/plain'});
-          res.end('forward');
-          var steps = parseInt(getQueryObj(req).steps, 10);
-
-          selectedRobot.driveDistanceByCm(steps, 0, function(err) {
-            console.log('Drive to Forward ' + steps + ' steps');
-          });
-        });
-
-        dispatcher.onGet('/backward', function(req, res) {
-          res.writeHead(200, {'Content-Type': 'text/plain'});
-          res.end('backward');
-          var steps = parseInt(getQueryObj(req).steps, 10);
-
-          selectedRobot.driveDistanceByCm(steps * -1, 0, function(err) {
-            console.log('Drive to Backward ' + steps + ' steps');
-          });
-        });
-
-        dispatcher.onGet('/right', function(req, res) {
-          res.writeHead(200, {'Content-Type': 'text/plain'});
-          res.end('right');
-          var degrees = parseInt(getQueryObj(req).degrees, 10);
-
-          selectedRobot.driveDistanceByCm(0, degrees, function(err) {
-            console.log('Drive to Right ' + degrees + ' degrees');
-          });
-        });
-
-        dispatcher.onGet('/left', function(req, res) {
-          res.writeHead(200, {'Content-Type': 'text/plain'});
-          res.end('left');
-          var degrees = parseInt(getQueryObj(req).degrees, 10);
-
-          selectedRobot.driveDistanceByCm(0, degrees * -1, function(err) {
-            console.log('Drive to Left ' + degrees + ' degrees');
-          });
-        });
 
         //Create a server
         var server = http.createServer(handleRequest);
@@ -102,5 +63,45 @@ mipFinder.scan(function(err, robots) {
         });
       });
     }
+  });
+});
+
+dispatcher.onGet('/forward', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('forward');
+  var steps = parseInt(getQueryObj(req).steps, 10);
+
+  selectedRobot.driveDistanceByCm(steps, 0, function(err) {
+    console.log('Drive to Forward ' + steps + ' steps');
+  });
+});
+
+dispatcher.onGet('/backward', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('backward');
+  var steps = parseInt(getQueryObj(req).steps, 10);
+
+  selectedRobot.driveDistanceByCm(steps * -1, 0, function(err) {
+    console.log('Drive to Backward ' + steps + ' steps');
+  });
+});
+
+dispatcher.onGet('/right', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('right');
+  var degrees = parseInt(getQueryObj(req).degrees, 10);
+
+  selectedRobot.driveDistanceByCm(0, degrees, function(err) {
+    console.log('Drive to Right ' + degrees + ' degrees');
+  });
+});
+
+dispatcher.onGet('/left', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('left');
+  var degrees = parseInt(getQueryObj(req).degrees, 10);
+
+  selectedRobot.driveDistanceByCm(0, degrees * -1, function(err) {
+    console.log('Drive to Left ' + degrees + ' degrees');
   });
 });
