@@ -1,6 +1,6 @@
 # scratch2mip
 
-scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch to controll balancing robot, [WowWee MiP](http://wowwee.com/mip/).
+scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch to control balancing robot, [WowWee MiP](http://wowwee.com/mip/).
 
 [![scratch2mip Demo](http://champierre.github.io/scratch2mip/images/scratch2mip.gif?201610022307)](https://youtu.be/sXMXr9e-npw)
 
@@ -18,7 +18,7 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 
 ## Install Helper App
 
-To controll MiP, Helper App needs to be installed. You need node.js to run it.
+To control MiP, Helper App needs to be installed. You need node.js to run it.
 
 ```
 % cd workdir
@@ -44,13 +44,34 @@ To controll MiP, Helper App needs to be installed. You need node.js to run it.
 	cd workdir/scratch2mpi_helper
 	node scratch2mip_helper.js
 	```
-6. If the Helper App successfully connects to the robot, it lists your MiP. Choose the robot you want to controll.
+6. If the Helper App successfully connects to the robot, it lists your MiP. Choose the robot you want to control.
 
 	![scratch2mip_helper](http://champierre.github.io/scratch2mip/images/scratch2mip_helper.png)
-7. If the Helper App says "Server listening on...", you can controll MiP from ScratchX using the following custom blocks.
+7. If the Helper App says "Server listening on...", you can control MiP from ScratchX using the following custom blocks.
 
 	![blocks](http://champierre.github.io/scratch2mip/images/blocks.png?201605300033)
 
 8. Demo Project: [scratch2mip_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_demo.sbx)
 
 	![blocks](http://champierre.github.io/scratch2mip/images/mip_square.png)
+
+## Remote Sensor Protocol version for Scratch 1.4
+
+If you want to control MiP from Scratch 1.4, use scratch2mip_helper/scratch2mip_rsc.js.
+
+1. Start Scratch 1.4.
+
+2. Enable "remote sensor connections"(Click "Sensing" on the top left area, then right click on "slider sensor value". Select "enable remote sensor connections" in the context menu.)
+
+  ![remote sensor connections](http://champierre.github.io/scratch2mip/images/rsc.png)
+
+3. Run the Helper App RSC version:
+
+	```
+	cd workdir/scratch2mpi_helper
+	node scratch2mip_rsc.js
+	```
+
+4. Use "broadcast" blocks to control MiP
+
+  ![broadcast blocks](http://champierre.github.io/scratch2mip/images/broadcast_blocks.png)
