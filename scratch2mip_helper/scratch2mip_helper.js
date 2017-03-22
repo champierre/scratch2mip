@@ -1,6 +1,8 @@
 var http = require('http');
 var url = require('url');
-var dispatcher = require('httpdispatcher');
+var HttpDispatcher = require('httpdispatcher');
+var dispatcher = new HttpDispatcher();
+
 var queryString = require( 'querystring' );
 const PORT = 8080;
 
