@@ -54,6 +54,7 @@ mipFinder.scan(function(err, robots) {
           console.log(err);
           return;
         }
+        console.log("MiP is connected.");
 
         //Create a server
         var server = http.createServer(handleRequest);
