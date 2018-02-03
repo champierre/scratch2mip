@@ -4,9 +4,13 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 
 [![scratch2mip Demo](http://champierre.github.io/scratch2mip/images/scratch2mip.gif?201610022307)](https://youtu.be/sXMXr9e-npw)
 
+## Setup Demo
+
+![scratch2mip Setup Demo](http://champierre.github.io/scratch2mip/images/scratch2mip_setup.gif)
+
 ## Platforms
 
-- MacOS 10.10.5(Yosemite)
+- MacOS 10.13.2(High Sierra)
   - node.js is required
 - Windows 10
 	- Setup instruction is available at [http://swikis.ddo.jp/WorldStethoscope/59](http://swikis.ddo.jp/WorldStethoscope/59) (Japanese)
@@ -27,6 +31,8 @@ To control MiP, Helper App needs to be installed. You need node.js to run it.
 % cd scratch2mip_helper
 % npm install
 ```
+
+Ignore WARN messages. These are warning messages.
 
 ## Run scratch2mip
 
