@@ -6,7 +6,7 @@ scratch2mip is [ScratchX](http://scratchx.org/) extension that enables Scratch t
 
 ## Setup Demo
 
-![scratch2mip Setup Demo](http://champierre.github.io/scratch2mip/images/scratch2mip_setup.gif)
+![scratch2mip Setup Demo](http://champierre.github.io/scratch2mip/images/scratch2mip_setup.gif?201802040015)
 
 ## Platforms
 
