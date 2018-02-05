@@ -1,10 +1,7 @@
-var http = require('http');
-var url = require('url');
-var HttpDispatcher = require('httpdispatcher');
-var dispatcher = new HttpDispatcher();
-
-var queryString = require( 'querystring' );
+var WebSocketServer = require('ws').Server;
 const PORT = 8080;
+var wss = new WebSocketServer({port: PORT});
+var connections = [];
 
 var mip = require('./index');
 var mipFinder = new mip.Finder();
@@ -13,31 +10,6 @@ var selectedRobot;
 
 var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
-
-var lastRadar;
-var lastGesture;
-
-function handleRequest(request, response) {
-  try {
-    //log the request on console
-    console.log(request.url);
-    //Disptach
-    dispatcher.dispatch(request, response);
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-function getQueryObj(req) {
-  // gets the query part of the URL and parses it creating an object
-  var queryObj = queryString.parse(url.parse(req.url).query);
-  return queryObj;
-
-  // queryObj will contain the data of the query as an object
-  // and jsonData will be a property of it
-  // so, using JSON.parse will parse the jsonData to create an object
-  // var obj = JSON.parse( queryObj.jsonData );
-}
 
 function radarFromCode(status) {
   switch (status) {
@@ -107,11 +79,16 @@ mipFinder.scan(function(err, robots) {
 			    selectedRobot.convertMiPResponse(data, function(command, arr) {
             if (command === 'SET_RADAR_MODE') {
               lastRadar = radarFromCode(arr[0]);
-              console.info('Radar: %s', lastRadar);
+              console.log('Radar: %s', lastRadar);
+              if (connections) {
+                connections.forEach(function (conn, i) {
+                  conn.send(JSON.stringify({command: lastRadar}));
+                });
+              }
               return;
             } else if (command === 'SET_GESTURE_MODE') {
               lastGesture = gestureFromCode(arr[0]);
-              console.info('Gesture: %s', lastGesture);
+              console.log('Gesture: %s', lastGesture);
               return;
             }
             if (!ignore || ignoreList[command] === undefined || !ignoreList[command]) {
@@ -119,90 +96,47 @@ mipFinder.scan(function(err, robots) {
             }
           });
         });
-
-        //Create a server
-        var server = http.createServer(handleRequest);
-
-        //Lets start our server
-        server.listen(PORT, function() {
-          //Callback triggered when server is successfully listening. Hurray!
-          console.log("Server listening on: http://localhost:%s", PORT);
-        });
       });
     }
   });
 });
 
-dispatcher.onGet('/forward', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('forward');
-  var steps = parseInt(getQueryObj(req).steps, 10);
-
-  selectedRobot.driveDistanceByCm(steps, 0, function(err) {
-    console.log('Drive to Forward ' + steps + ' steps');
+wss.on('connection', function(ws) {
+  connections.push(ws);
+  ws.on('close', function() {
+    connections = connections.filter(function (conn, i) {
+      return (conn === ws) ? false : true;
+    });
   });
-});
-
-dispatcher.onGet('/backward', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('backward');
-  var steps = parseInt(getQueryObj(req).steps, 10);
-
-  selectedRobot.driveDistanceByCm(steps * -1, 0, function(err) {
-    console.log('Drive to Backward ' + steps + ' steps');
+  ws.on('message', function(json) {
+    console.log("received " + json);
+    data = JSON.parse(json);
+    if (data.command == 'forward') {
+      selectedRobot.driveDistanceByCm(data.steps, 0, function(err) {
+        console.log('Drive to forward ' + data.steps + ' steps');
+      });
+    } else if (data.command == 'backward') {
+      selectedRobot.driveDistanceByCm(data.steps * -1, 0, function(err) {
+        console.log('Drive to backward ' + data.steps + ' steps');
+      });
+    } else if (data.command == 'right') {
+      selectedRobot.driveDistanceByCm(0, data.degrees, function(err) {
+        console.log('Drive to Right ' + data.degrees + ' degrees');
+      });
+    } else if (data.command == 'left') {
+      selectedRobot.driveDistanceByCm(0, data.degrees * -1, function(err) {
+        console.log('Drive to Left ' + data.degrees + ' degrees');
+      });
+    } else if (data.command == 'set_radar_mode') {
+      var mode_code;
+      if (data.mode == 'radar') {
+        mode_code = 4;
+      } else {
+        mode_code = 2;
+      }
+      selectedRobot.sendMiPCommand("SET_RADAR_MODE", mode_code, function(err) {
+        console.log('Set radar mode to %s', data.mode);
+      });
+    }
   });
-});
-
-dispatcher.onGet('/right', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('right');
-  var degrees = parseInt(getQueryObj(req).degrees, 10);
-
-  selectedRobot.driveDistanceByCm(0, degrees, function(err) {
-    console.log('Drive to Right ' + degrees + ' degrees');
-  });
-});
-
-dispatcher.onGet('/left', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('left');
-  var degrees = parseInt(getQueryObj(req).degrees, 10);
-
-  selectedRobot.driveDistanceByCm(0, degrees * -1, function(err) {
-    console.log('Drive to Left ' + degrees + ' degrees');
-  });
-});
-
-dispatcher.onGet('/set_radar_mode', function(req, res) {
-  var mode = getQueryObj(req).mode;
-  var modeCode;
-  if (mode === 'radar') {
-      modeCode = 4;
-  } else if (mode === 'gesture') {
-      modeCode = 2;
-  } else {
-    console.error('Invalid radar mode "%s", must be one of {radar, gesture}', mode);
-    res.writeHead(400, {'Content-Type': 'text/plain'});
-    res.end('Invalid radar mode: ' + mode + '\r\nset_radar_mode');
-    return;
-  }
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('set_radar_mode');
-  selectedRobot.sendMiPCommand("SET_RADAR_MODE", modeCode, function(err) {
-    lastRadar = undefined;
-    lastGesture = undefined;
-    console.info('Set radar mode = %s', mode);
-  });
-});
-
-dispatcher.onGet('/get_radar', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/json'});
-  res.end("{'radar':'" + lastRadar + "'}\r\n");
-  lastRadar = undefined
-});
-
-dispatcher.onGet('/get_gesture', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/json'});
-  res.end("{'radar':'" + lastGesture + "'}\r\n");
-  lastGesture = undefined
 });
