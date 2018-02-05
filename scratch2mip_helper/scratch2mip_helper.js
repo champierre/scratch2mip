@@ -173,7 +173,7 @@ dispatcher.onGet('/left', function(req, res) {
   });
 });
 
-dispatcher.onGet('/set-radar-mode', function(req, res) {
+dispatcher.onGet('/set_radar_mode', function(req, res) {
   var mode = getQueryObj(req).mode;
   var modeCode;
   if (mode === 'radar') {
@@ -183,11 +183,11 @@ dispatcher.onGet('/set-radar-mode', function(req, res) {
   } else {
     console.error('Invalid radar mode "%s", must be one of {radar, gesture}', mode);
     res.writeHead(400, {'Content-Type': 'text/plain'});
-    res.end('Invalid radar mode: ' + mode + '\r\nset-radar-mode');
+    res.end('Invalid radar mode: ' + mode + '\r\nset_radar_mode');
     return;
   }
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('set-radar-mode');
+  res.end('set_radar_mode');
   selectedRobot.sendMiPCommand("SET_RADAR_MODE", modeCode, function(err) {
     lastRadar = undefined;
     lastGesture = undefined;
@@ -195,13 +195,13 @@ dispatcher.onGet('/set-radar-mode', function(req, res) {
   });
 });
 
-dispatcher.onGet('/get-radar', function(req, res) {
+dispatcher.onGet('/get_radar', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end(lastRadar + '\r\nget-radar');
+  res.end(lastRadar + '\r\nget_radar');
 });
 
-dispatcher.onGet('/get-gesture', function(req, res) {
+dispatcher.onGet('/get_gesture', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end(lastGesture + '\r\nget-gesture');
+  res.end(lastGesture + '\r\nget_gesture');
   lastGesture = undefined;
 });
