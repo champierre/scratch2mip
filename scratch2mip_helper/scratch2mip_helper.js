@@ -78,17 +78,22 @@ mipFinder.scan(function(err, robots) {
           //convert the response by MiPCommand
 			    selectedRobot.convertMiPResponse(data, function(command, arr) {
             if (command === 'SET_RADAR_MODE') {
-              lastRadar = radarFromCode(arr[0]);
-              console.log('Radar: %s', lastRadar);
+              var radar = radarFromCode(arr[0]);
+              console.log('Radar: %s', radar);
               if (connections) {
                 connections.forEach(function (conn, i) {
-                  conn.send(JSON.stringify({command: lastRadar}));
+                  conn.send(JSON.stringify({command: 'radar', status: radar}));
                 });
               }
               return;
             } else if (command === 'SET_GESTURE_MODE') {
-              lastGesture = gestureFromCode(arr[0]);
-              console.log('Gesture: %s', lastGesture);
+              var gesture = gestureFromCode(arr[0]);
+              console.log('Gesture: %s', gesture);
+              if (connections) {
+                connections.forEach(function (conn, i) {
+                  conn.send(JSON.stringify({command: 'gesture', status: gesture}));
+                });
+              }
               return;
             }
             if (!ignore || ignoreList[command] === undefined || !ignoreList[command]) {
