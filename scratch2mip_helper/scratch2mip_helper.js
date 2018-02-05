@@ -196,12 +196,13 @@ dispatcher.onGet('/set_radar_mode', function(req, res) {
 });
 
 dispatcher.onGet('/get_radar', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end(lastRadar + '\r\nget_radar');
+  res.writeHead(200, {'Content-Type': 'text/json'});
+  res.end("{'radar':'" + lastRadar + "'}\r\n");
+  lastRadar = undefined
 });
 
 dispatcher.onGet('/get_gesture', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end(lastGesture + '\r\nget_gesture');
-  lastGesture = undefined;
+  res.writeHead(200, {'Content-Type': 'text/json'});
+  res.end("{'radar':'" + lastGesture + "'}\r\n");
+  lastGesture = undefined
 });
