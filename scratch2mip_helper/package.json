@@ -1,6 +1,6 @@
 {
   "name": "scratch2mip_helper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Control self balancing robot WowWee MiP from ScratchX. For more information, visit https://github.com/champierre/scratch2mip",
   "main": "index.js",
   "scripts": {
