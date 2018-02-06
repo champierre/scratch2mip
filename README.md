@@ -61,6 +61,10 @@ Ignore WARN messages. These are warning messages.
 
 	![blocks](http://champierre.github.io/scratch2mip/images/mip_square.png)
 
+9. Demo Project 2(Using the radar): [scratch2mip_radar_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_radar_demo.sbx)
+
+  ![radar demo script](http://champierre.github.io/scratch2mip/images/radar_demo.png)
+
 ## Remote Sensor Protocol version for Scratch 1.4
 
 If you want to control MiP from Scratch 1.4, use scratch2mip_helper/scratch2mip_rsc.js.
