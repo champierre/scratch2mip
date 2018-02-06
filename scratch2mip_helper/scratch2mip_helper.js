@@ -45,6 +45,7 @@ function gestureFromCode(status) {
   }
 }
 
+console.log("Starting scratch2mip 1.1.0");
 mipFinder.scan(function(err, robots) {
   if (err != null) {
     console.log(err);
