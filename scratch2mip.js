@@ -2,6 +2,8 @@
     var ws;
     var when_near = false;
     var when_far = false;
+    var when_clear = false;
+    var radar = '';
 
     ext._shutdown = function() {};
 
@@ -13,10 +15,17 @@
       ws = new WebSocket('ws://localhost:8080');
       ws.onmessage = function(evt) {
         data = JSON.parse(evt.data);
-        if (data.command == 'near') {
-          when_near = true;
-        } else if (data.command == 'far') {
-          when_far = true;
+        if (data.command == 'radar') {
+          if (data.status == 'clear') {
+            when_clear = true;
+            radar = 'clear';
+          } else if (data.status == 'far') {
+            when_far = true;
+            radar = 'far';
+          } else if (data.status == 'near') {
+            when_near = true;
+            radar = 'near';
+          }
         }
       }
     }
@@ -45,15 +54,15 @@
       }
     }
 
-    ext.set_radar_mode = function(mode) {
+    ext.set_radar_on = function() {
       if (ws) {
-        ws.send(JSON.stringify({command: 'set_radar_mode', mode: mode}));
+        ws.send(JSON.stringify({command: 'set_radar_on'}));
       }
     }
 
-    ext.when_near = function() {
-      if (when_near) {
-        when_near = false;
+    ext.when_clear = function() {
+      if (when_clear) {
+        when_clear = false;
         return true;
       }
       return false;
@@ -67,30 +76,31 @@
       return false;
     }
 
-    ext.get_gesture = function(callback) {
-        $.ajax({
-            url: 'http://localhost:8080/get_gesture',
-            dataType: 'json',
-            success: function(res) {
-                console.log('get gesture:' + res);
-                gesture = res['gesture'];
-                callback(gesture);
-            }
-        });
+    ext.when_near = function() {
+      if (when_near) {
+        when_near = false;
+        return true;
+      }
+      return false;
+    }
+
+    ext.get_radar = function() {
+      return radar;
     }
 
     var lang = ((navigator.language || navigator.userLanguage) == 'ja') ? 'ja' : 'en';
     var locale = {
         ja: {
-            connect: 'connect',
+            connect: '接続する',
             turn_right: '右に %n 度回す',
             turn_left: '左に %n 度回す',
             move_forward: '%n 歩前進させる',
             move_backward: '%n 歩後退させる',
-            set_radar_mode: 'レーダーモードを %m.radar_mode にする',
-            when_near: '近いとき',
-            when_far: '遠いとき',
-            get_gesture: 'get gesture',
+            set_radar_on: 'レーダーをオンにする',
+            when_clear: '障害物がないとき',
+            when_far: '障害物が遠いとき',
+            when_near: '障害物が近いとき',
+            get_radar: '障害物との距離(1:なし 2:遠い 3:近い)'
         },
         en: {
             connect: 'connect',
@@ -98,10 +108,11 @@
             turn_left: 'turn left %n degrees',
             move_forward: 'move forward %n steps',
             move_backward: 'move backward %n steps',
-            set_radar_mode: 'set radar mode to %m.radar_mode',
+            set_radar_on: 'set radar on',
+            when_clear: 'when clear',
             when_near: 'when near',
             when_far: 'when far',
-            get_gesture: 'get gesture'
+            get_radar: 'get radar(1:clear 2:far 3:near)'
         },
     }
 
@@ -112,13 +123,15 @@
             [' ', 'MiP: ' + locale[lang].turn_left, 'left', 90],
             [' ', 'MiP: ' + locale[lang].move_forward, 'forward'],
             [' ', 'MiP: ' + locale[lang].move_backward, 'backward'],
-            [' ', 'MiP: ' + locale[lang].set_radar_mode, 'set_radar_mode', 'radar'],
-            ['h', 'MiP: ' + locale[lang].when_near, 'when_near'],
+            [' ', 'MiP: ' + locale[lang].set_radar_on, 'set_radar_on'],
+            ['h', 'MiP: ' + locale[lang].when_clear, 'when_clear'],
             ['h', 'MiP: ' + locale[lang].when_far, 'when_far'],
-            ['R', 'MiP: ' + locale[lang].get_gesture, 'get_gesture'],
+            ['h', 'MiP: ' + locale[lang].when_near, 'when_near'],
+            ['r', 'MiP: ' + locale[lang].get_radar, 'get_radar']
         ],
         menus: {
-            radar_mode: ['radar', 'gesture']
+            // radar_mode: ['radar', 'gesture']
+            radar_mode: ['radar']
         }
     };
 

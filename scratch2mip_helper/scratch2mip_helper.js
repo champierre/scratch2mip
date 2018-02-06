@@ -118,29 +118,27 @@ wss.on('connection', function(ws) {
     data = JSON.parse(json);
     if (data.command == 'forward') {
       selectedRobot.driveDistanceByCm(data.steps, 0, function(err) {
-        console.log('Drive to forward ' + data.steps + ' steps');
+        console.log('Drive forward ' + data.steps + ' steps');
       });
     } else if (data.command == 'backward') {
       selectedRobot.driveDistanceByCm(data.steps * -1, 0, function(err) {
-        console.log('Drive to backward ' + data.steps + ' steps');
+        console.log('Drive backward ' + data.steps + ' steps');
       });
     } else if (data.command == 'right') {
       selectedRobot.driveDistanceByCm(0, data.degrees, function(err) {
-        console.log('Drive to Right ' + data.degrees + ' degrees');
+        console.log('Drive right ' + data.degrees + ' degrees');
       });
     } else if (data.command == 'left') {
       selectedRobot.driveDistanceByCm(0, data.degrees * -1, function(err) {
-        console.log('Drive to Left ' + data.degrees + ' degrees');
+        console.log('Drive left ' + data.degrees + ' degrees');
       });
-    } else if (data.command == 'set_radar_mode') {
-      var mode_code;
-      if (data.mode == 'radar') {
-        mode_code = 4;
-      } else {
-        mode_code = 2;
-      }
-      selectedRobot.sendMiPCommand("SET_RADAR_MODE", mode_code, function(err) {
-        console.log('Set radar mode to %s', data.mode);
+    } else if (data.command == 'set_radar_on') {
+      selectedRobot.sendMiPCommand("SET_RADAR_MODE", 4, function(err) {
+        console.log('Set radar on');
+      });
+    } else if (data.command == 'set_gesture_on') {
+      selectedRobot.sendMiPCommand("SET_RADAR_MODE", 2, function(err) {
+        console.log('Set gesture on');
       });
     }
   });
