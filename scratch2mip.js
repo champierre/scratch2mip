@@ -110,8 +110,8 @@
             move_backward: 'move backward %n steps',
             set_radar_on: 'set radar on',
             when_clear: 'when clear',
-            when_near: 'when near',
             when_far: 'when far',
+            when_near: 'when near',
             get_radar: 'get radar(1:clear 2:far 3:near)'
         },
     }
