@@ -63,9 +63,9 @@ Ignore WARN messages. These are warning messages.
 
 9. Demo Project 2(Using the radar): [scratch2mip_radar_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_radar_demo.sbx)
 
-  ![radar demo script](http://champierre.github.io/scratch2mip/images/radar_demo.png)
-
   [radar demo movie](https://www.youtube.com/watch?v=4g72a9Vvo_8)
+
+	![radar demo script](http://champierre.github.io/scratch2mip/images/radar_demo.png?201802062251)
 
 ## Remote Sensor Protocol version for Scratch 1.4
 
