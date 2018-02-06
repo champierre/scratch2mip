@@ -61,7 +61,7 @@ Ignore WARN messages. These are warning messages.
 
 	![blocks](http://champierre.github.io/scratch2mip/images/mip_square.png)
 
-9. Demo Project 2(Using the radar): [scratch2mip_radar_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_radar_demo.sbx) [Demo Movie](https://www.youtube.com/watch?v=4g72a9Vvo_8)
+9. Demo Project 2(Using the radar): [scratch2mip_radar_demo.sbx](http://champierre.github.io/scratch2mip/scratch2mip_radar_demo.sbx) [\[Demo Movie\]](https://www.youtube.com/watch?v=4g72a9Vvo_8)
 
 	![radar demo script](http://champierre.github.io/scratch2mip/images/radar_demo.png?201802062251)
 
