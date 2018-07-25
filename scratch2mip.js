@@ -12,7 +12,7 @@
     };
 
     ext.connect = function() {
-      ws = new WebSocket('ws://localhost:8080');
+      ws = new WebSocket('ws://localhost:8888');
       ws.onmessage = function(evt) {
         data = JSON.parse(evt.data);
         if (data.command == 'radar') {

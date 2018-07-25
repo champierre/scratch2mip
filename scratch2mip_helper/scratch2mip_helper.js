@@ -1,5 +1,5 @@
 var WebSocketServer = require('ws').Server;
-const PORT = 8080;
+const PORT = 8888;
 var wss = new WebSocketServer({port: PORT});
 var connections = [];
 
@@ -108,6 +108,7 @@ mipFinder.scan(function(err, robots) {
 });
 
 wss.on('connection', function(ws) {
+  console.log("Connected");
   connections.push(ws);
   ws.on('close', function() {
     connections = connections.filter(function (conn, i) {
