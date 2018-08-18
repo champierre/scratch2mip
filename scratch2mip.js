@@ -60,6 +60,18 @@
       }
     }
 
+    ext.play_sound = function(sound_id) {
+      if (ws) {
+        ws.send(JSON.stringify({command: 'play_sound', sound_id: sound_id}));
+      }
+    }
+
+    ext.set_chest_led = function(r, g, b) {
+      if (ws) {
+        ws.send(JSON.stringify({command: 'set_chest_led', r: r, g: g, b: b}));
+      }    
+    }
+
     ext.when_clear = function() {
       if (when_clear) {
         when_clear = false;
@@ -97,6 +109,8 @@
             move_forward: '%n 歩前進させる',
             move_backward: '%n 歩後退させる',
             set_radar_on: 'レーダーをオンにする',
+            play_sound: '音を鳴らす id: %n (1~106)',
+            set_chest_led: '胸のLEDを点ける R: %n G: %n B: %n',
             when_clear: '障害物がないとき',
             when_far: '障害物が遠いとき',
             when_near: '障害物が近いとき',
@@ -109,6 +123,8 @@
             move_forward: 'move forward %n steps',
             move_backward: 'move backward %n steps',
             set_radar_on: 'set radar on',
+            play_sound: 'play sound id: %n (1~106)',
+            set_chest_led: 'set chest led with R: %n G: %n B: %n',
             when_clear: 'when clear',
             when_far: 'when far',
             when_near: 'when near',
@@ -124,10 +140,12 @@
             [' ', 'MiP: ' + locale[lang].move_forward, 'forward'],
             [' ', 'MiP: ' + locale[lang].move_backward, 'backward'],
             [' ', 'MiP: ' + locale[lang].set_radar_on, 'set_radar_on'],
+            [' ', 'MiP: ' + locale[lang].play_sound, 'play_sound', 1],
+            [' ', 'MiP: ' + locale[lang].set_chest_led, 'set_chest_led', 255, 0, 0],
             ['h', 'MiP: ' + locale[lang].when_clear, 'when_clear'],
             ['h', 'MiP: ' + locale[lang].when_far, 'when_far'],
             ['h', 'MiP: ' + locale[lang].when_near, 'when_near'],
-            ['r', 'MiP: ' + locale[lang].get_radar, 'get_radar']
+            ['r', 'MiP: ' + locale[lang].get_radar, 'get_radar'],
         ],
         menus: {
             // radar_mode: ['radar', 'gesture']
