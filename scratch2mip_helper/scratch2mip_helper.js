@@ -228,21 +228,33 @@ wss.on('connection', function(ws) {
     console.log("received " + json);
     data = JSON.parse(json);
     if (data.command == 'forward') {
-      selectedRobot.driveDistanceByCm(data.steps, 0, function(err) {
-        console.log('Drive forward ' + data.steps + ' steps');
-      });
+      console.log('Received "Drive forward ' + data.steps + ' steps"');
+      if (selectedRobot) {
+        selectedRobot.driveDistanceByCm(data.steps, 0, function(err) {
+          console.log('Drive forward ' + data.steps + ' steps');
+        });
+      }
     } else if (data.command == 'backward') {
-      selectedRobot.driveDistanceByCm(data.steps * -1, 0, function(err) {
-        console.log('Drive backward ' + data.steps + ' steps');
-      });
+      console.log('Received "Drive backward ' + data.steps + ' steps"');
+      if (selectedRobot) {
+        selectedRobot.driveDistanceByCm(data.steps * -1, 0, function(err) {
+          console.log('Drive backward ' + data.steps + ' steps');
+        });
+      }
     } else if (data.command == 'right') {
-      selectedRobot.driveDistanceByCm(0, data.degrees, function(err) {
-        console.log('Drive right ' + data.degrees + ' degrees');
-      });
+      console.log('Received "Drive right ' + data.degrees + ' degrees"');
+      if (selectedRobot) {
+        selectedRobot.driveDistanceByCm(0, data.degrees, function(err) {
+          console.log('Drive right ' + data.degrees + ' degrees');
+        });
+      }
     } else if (data.command == 'left') {
-      selectedRobot.driveDistanceByCm(0, data.degrees * -1, function(err) {
-        console.log('Drive left ' + data.degrees + ' degrees');
-      });
+      console.log('Received "Drive left ' + data.degrees + ' degrees"');
+      if (selectedRobot) {
+        selectedRobot.driveDistanceByCm(0, data.degrees * -1, function(err) {
+          console.log('Drive left ' + data.degrees + ' degrees');
+        });
+      }
     } else if (data.command == 'set_radar_on') {
       selectedRobot.sendMiPCommand("SET_RADAR_MODE", 4, function(err) {
         console.log('Set radar on');
